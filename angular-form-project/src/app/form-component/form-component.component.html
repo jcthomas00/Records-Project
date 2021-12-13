@@ -1,0 +1,109 @@
+<div class="row d-flex justify-content-center">
+    <div class="col-md-6">
+        <form #birthdayForm="ngForm" (submit)="onSubmit(birthdayForm)" >
+        <!-- 2 column grid layout with text inputs for the first and last names -->
+        <div class="row mb-4">
+          <div class="col">
+            <div class="form-outline">
+                <input type="text" id="firstName" name="firstName" value="{{profile.firstName}}" class="form-control" required ngModel>
+                <label class="form-label" for="firstName" style="margin-left: 0px;">First name</label>
+                <div class="form-notch">
+                    <div class="form-notch-leading" style="width: 9px;"></div>
+                    <div class="form-notch-middle" style="width: 68.8px;"></div>
+                    <div class="form-notch-trailing"></div>
+                </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-outline">
+                <input type="text" id="lastName" name="lastName" class="form-control" required ngModel>
+                <label class="form-label" for="lastName" style="margin-left: 0px;">Last name</label>
+                <div class="form-notch">
+                    <div class="form-notch-leading" style="width: 9px;"></div>
+                    <div class="form-notch-middle" style="width: 68px;"></div>
+                    <div class="form-notch-trailing"></div>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Email input -->
+        <div class="form-outline mb-4">
+          <input type="email" id="email" name="email" class="form-control" required email ngModel >
+          <label class="form-label" for="email" style="margin-left: 0px;">Email address</label>
+            <div class="form-notch">
+                <div class="form-notch-leading" style="width: 9px;"></div>
+                <div class="form-notch-middle" style="width: 88.8px;"></div>
+                <div class="form-notch-trailing"></div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <select class="form-control" name="sign" id="sign" ngModel>
+                        <option *ngFor="let sign of signs">{{sign}}</option>
+                    </select>
+                    <label class="form-label" for="sign" style="margin-left: 0px;">Zodiac Sign</label>
+                      <div class="form-notch">
+                          <div class="form-notch-leading" style="width: 9px;"></div>
+                          <div class="form-notch-middle" style="width: 88.8px;"></div>
+                          <div class="form-notch-trailing"></div>
+                      </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <!-- Date -->
+                <div class="form-outline">
+                    <input id="birthday" type="date" class="form-control d-flex justify-content-center mb-4" 
+                    name="birthday" value="{{ profile.birthday | date:'yyyy-MM-dd' }}" required ngModel>
+                    <label class="form-label" for="birthday" style="margin-left: 0px;">Birthday</label>
+                    <div class="form-notch">
+                        <div class="form-notch-leading" style="width: 9px;"></div>
+                        <div class="form-notch-middle" style="width: 88.8px;"></div>
+                        <div class="form-notch-trailing"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+
+        
+
+        <!-- Checkbox -->
+        <div class="form-check d-flex justify-content-center mb-4">
+          <input class="form-check-input me-2" type="checkbox" value="" id="retrograde" name="retrograde" checked="" ngModel>
+          <label class="form-check-label" for="retrograde">
+            Mercury is in retrograde
+          </label>
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary btn-block mb-4" [disabled]="birthdayForm.invalid">
+          Submit
+        </button>
+      </form>
+
+      <div *ngIf="horoscope.description">
+          <p>Hello {{profile.firstName}} {{profile.lastName}}. </p>
+          Here is your horoscope for {{horoscope.current_date}}: 
+          <p>{{horoscope.description}}</p>
+          <ul>
+                <li>
+                    Your lucky number today is: {{horoscope.lucky_number}}
+                </li>
+              <li>
+                Your lucky time is: {{horoscope.lucky_time}}
+                </li>
+              <li>
+                Your mood today will be: {{horoscope.mood}}
+            </li>
+              <li>
+                You are compatible with a {{horoscope.compatibility}} as long as they are born around {{profile.birthday}}.
+            </li>
+          </ul>
+          <p>Mercury is <span *ngIf="!profile.retrograde">not</span> in retrograde today.</p>
+      </div>
+    </div>
+  </div>
